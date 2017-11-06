@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+    .book-card {
+      border: 1px solid #a1a1a1;
+      padding: 10px;
+      box-shadow: 10px 10px 5px rgba(136, 136, 136, 0.84);
+      border-radius: 6px;
+      margin-right: 20px;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+    }
+
+    .book-card span{
+      float: right;
+      margin-left: 10px;
+    }
+    img{
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+<h1>Main Page</h1>
+<div id="booksccontainer"></div>
+<script type="text/javascript">
+var container = document.getElementById('booksccontainer');
+
+fetch("http://localhost:3000/books")
+.then(res=>res.json())
+.then(res=>{
+res.forEach(book=>{
+ let bookelement = document.createElement('div');
+ bookelement.classList.add('book-card')
+ bookelement.innerHTML= decorateBook(book);
+ console.log(bookelement);
+ container.appendChild(bookelement);
+
+})
+});
+
+function decorateBook(data) {
+
+  return `
+<h2>${data.name}</h2>
+<h3>${data.author}</h3>
+<span data-id="${data.id}">Delete</span>
+<img src="${data.url}" alt="">
+`
+};
+
+</script>
+</body>
+</html>
